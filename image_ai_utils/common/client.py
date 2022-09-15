@@ -245,9 +245,18 @@ class ImageAIUtilsClient:
             guidance_scale: float = 7.5,
             seed: Optional[int] = None,
             progress_callback: Optional[Callable[[float], None]] = None,
-            scaling_mode: ScalingMode = ScalingMode.GROW
+            scaling_mode: ScalingMode = ScalingMode.GROW,
+            experimental: bool = False,
+            noise_q : float = 0,
+            mask_blend_factor : float = 0,
+            color_variation : float = 0
     ) -> List[Image.Image]:
-        extra_kwargs = {}
+        extra_kwargs = {
+            'experimental' : experimental,
+            'noise_q' : noise_q,
+            'mask_blend_factor' : mask_blend_factor,
+            'color_variation' : color_variation
+        }
         if mask is not None:
             extra_kwargs['mask'] = image_to_base64url(mask).decode()
         return self.do_diffusion_request(

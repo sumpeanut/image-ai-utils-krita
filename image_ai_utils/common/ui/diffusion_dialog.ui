@@ -317,6 +317,47 @@
            </property>
           </widget>
          </item>
+         <!-- begin inpaint experiment -->
+         <item row="10" column="0">
+          <widget class="QLabel" name="experimental_label"><property name="text">
+            <string>Experimental:</string></property></widget></item>
+         <item row="10" column="1">
+          <widget class="QCheckBox" name="experimental_check_box"><property name="text"><string/></property>
+           <property name="checked">
+            <bool>false</bool></property></widget></item>
+         <item row="11" column="0">
+          <widget class="QLabel" name="noise_q_label"><property name="text">
+            <string>Noise Q:</string></property></widget></item>
+         <item row="11" column="1">
+          <widget class="QDoubleSpinBox" name="noise_q_double_spin_box">
+           <property name="maximum">
+            <double>1.000000000000000</double></property>
+           <property name="singleStep">
+            <double>0.100000000000000</double></property>
+           <property name="value">
+            <double>0.990000000000000</double></property></widget></item>
+         <item row="12" column="0">
+          <widget class="QLabel" name="color_variation_label"><property name="text">
+            <string>Color Variation:</string></property></widget></item>
+         <item row="12" column="1">
+          <widget class="QDoubleSpinBox" name="color_variation_double_spin_box">
+           <property name="maximum">
+            <double>1.000000000000000</double></property>
+           <property name="singleStep">
+            <double>0.100000000000000</double></property>
+           <property name="value">
+            <double>0.010000000000000</double></property></widget></item>
+         <item row="13" column="0">
+          <widget class="QLabel" name="mask_blend_factor_label"><property name="text">
+            <string>Mask Blend Factor:</string></property></widget></item>
+         <item row="13" column="1">
+          <widget class="QDoubleSpinBox" name="mask_blend_factor_double_spin_box">
+           <property name="maximum">
+            <double>100.000000000000000</double></property>
+           <property name="singleStep">
+            <double>1.00000000000000</double></property>
+           <property name="value">
+            <double>1.000000000000000</double></property></widget></item>           
         </layout>
        </item>
        <item>
