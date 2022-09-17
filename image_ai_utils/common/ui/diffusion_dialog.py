@@ -73,14 +73,20 @@ class DiffusionDialog(QDialog):
     border_width_spin_box: QSpinBox
     border_softness_label: QLabel
     border_softness_double_spin_box: QDoubleSpinBox
-    experimental_label: QLabel  # Begin experimental inpainting
-    experimental_check_box: QCheckBox
+    parlance_zz_noise_label: QLabel  # Begin parlance_zz_noise inpainting
+    parlance_zz_noise_check_box: QCheckBox
     moise_q_label: QLabel
     noise_q_double_spin_box: QDoubleSpinBox
     color_variation_label: QLabel
     color_variation_double_spin_box: QDoubleSpinBox
     mask_blend_factor_label: QLabel
-    mask_blend_factor_double_spin_box: QDoubleSpinBox      
+    mask_blend_factor_double_spin_box: QDoubleSpinBox  
+    edge_connect_label: QLabel # Begin edge_connect inpainting
+    edge_connect_check_box: QCheckBox
+    edge_connect_mode_label: QLabel
+    edge_connect_mode_spin_box: QDoubleSpinBox
+    edge_threshold_label: QLabel
+    edge_threshold_double_spin_box: QDoubleSpinBox
 
     def __init__(self):
         super().__init__()
@@ -88,15 +94,22 @@ class DiffusionDialog(QDialog):
         self.use_random_seed_check_box.stateChanged.connect(
             lambda state: self.seed_spin_box.setEnabled(not state)
         )
-        self.experimental_check_box.stateChanged.connect(
+        self.parlance_zz_noise_check_box.stateChanged.connect(
             lambda state: self.noise_q_double_spin_box.setEnabled(state)
         )
-        self.experimental_check_box.stateChanged.connect(
+        self.parlance_zz_noise_check_box.stateChanged.connect(
             lambda state: self.color_variation_double_spin_box.setEnabled(state)
         )
-        self.experimental_check_box.stateChanged.connect(
+        self.parlance_zz_noise_check_box.stateChanged.connect(
             lambda state: self.mask_blend_factor_double_spin_box.setEnabled(state)
         )
+        self.edge_connect_check_box.stateChanged.connect(
+            lambda state: self.edge_connect_mode_spin_box.setEnabled(state)
+        )
+        self.edge_connect_check_box.stateChanged.connect(
+            lambda state: self.edge_threshold_double_spin_box.setEnabled(state)
+        )
+
         self.upscale_dialog = UpscaleDialog()
         self.progress_bar_dialog = ProgressBarDialog()
         self._columns = 2  # TODO change dynamically
@@ -179,10 +192,13 @@ class DiffusionDialog(QDialog):
             request_data['strength'] = self.strength_double_spin_box.value()
             request_data['source_image'] = self._source_image
             request_data['mask'] = self._mask
-            request_data['experimental'] = self.experimental_check_box.isChecked()
+            request_data['parlance_zz_noise'] = self.parlance_zz_noise_check_box.isChecked()
             request_data['noise_q'] = self.noise_q_double_spin_box.value()
             request_data['mask_blend_factor'] = self.mask_blend_factor_double_spin_box.value()
             request_data['color_variation'] = self.color_variation_double_spin_box.value()
+            request_data['edge_connect'] = self.edge_connect_check_box.isChecked()
+            request_data['edge_connect_mode'] = self.edge_connect_mode_spin_box.value()
+            request_data['edge_threshold'] = self.edge_threshold_double_spin_box.value()
             thread = ProgressThread(ImageAIUtilsClient.client().inpaint, request_data)
         elif self._mode == DiffusionMode.MAKE_TILABLE:
             request_data['strength'] = self.strength_double_spin_box.value()
@@ -226,14 +242,21 @@ class DiffusionDialog(QDialog):
         self.border_width_spin_box.setVisible(mode == DiffusionMode.MAKE_TILABLE)
         self.border_softness_label.setVisible(mode == DiffusionMode.MAKE_TILABLE)
         self.border_softness_double_spin_box.setVisible(mode == DiffusionMode.MAKE_TILABLE)
-        self.experimental_label.setVisible(mode == DiffusionMode.INPAINT)
+        self.parlance_zz_noise_label.setVisible(mode == DiffusionMode.INPAINT)
         self.noise_q_label.setVisible(mode == DiffusionMode.INPAINT)
         self.color_variation_label.setVisible(mode == DiffusionMode.INPAINT)
         self.mask_blend_factor_label.setVisible(mode == DiffusionMode.INPAINT)
-        self.experimental_check_box.setVisible(mode == DiffusionMode.INPAINT)
+        self.parlance_zz_noise_check_box.setVisible(mode == DiffusionMode.INPAINT)
         self.noise_q_double_spin_box.setVisible(mode == DiffusionMode.INPAINT)
         self.color_variation_double_spin_box.setVisible(mode == DiffusionMode.INPAINT)
         self.mask_blend_factor_double_spin_box.setVisible(mode == DiffusionMode.INPAINT)
+        self.edge_connect_label.setVisible(mode == DiffusionMode.INPAINT)
+        self.edge_connect_check_box.setVisible(mode == DiffusionMode.INPAINT)
+        self.edge_connect_mode_label.setVisible(mode == DiffusionMode.INPAINT)
+        self.edge_connect_mode_spin_box.setVisible(mode == DiffusionMode.INPAINT)
+        self.edge_threshold_label.setVisible(mode == DiffusionMode.INPAINT)
+        self.edge_threshold_double_spin_box.setVisible(mode == DiffusionMode.INPAINT)
+        
 
     def set_target_size(self, width, height):
         self._target_width = width

@@ -246,16 +246,22 @@ class ImageAIUtilsClient:
             seed: Optional[int] = None,
             progress_callback: Optional[Callable[[float], None]] = None,
             scaling_mode: ScalingMode = ScalingMode.GROW,
-            experimental: bool = False,
+            parlance_zz_noise: bool = False,
             noise_q : float = 0,
             mask_blend_factor : float = 0,
-            color_variation : float = 0
+            color_variation : float = 0,
+            edge_connect: bool = False,
+            edge_connect_mode: int = 3,
+            edge_threshold: float = 0.5
     ) -> List[Image.Image]:
         extra_kwargs = {
-            'experimental' : experimental,
+            'parlance_zz_noise' : parlance_zz_noise,
             'noise_q' : noise_q,
             'mask_blend_factor' : mask_blend_factor,
-            'color_variation' : color_variation
+            'color_variation' : color_variation,
+            'edge_connect' : edge_connect,
+            'edge_connect_mode' : edge_connect_mode,
+            'edge_threshold' : edge_threshold
         }
         if mask is not None:
             extra_kwargs['mask'] = image_to_base64url(mask).decode()
