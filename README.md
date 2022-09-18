@@ -1,4 +1,8 @@
 # Krita addon for Image AI Utils based on Stable Diffusion
+## License (Reminder)
+Other projects have been referenced that do not share the same license.
+- TODO ensure all licenses are compatible/acceptable before creating PR request back into primary repo
+
 ## Features
 - Text to image
 - Image to image

@@ -252,7 +252,9 @@ class ImageAIUtilsClient:
             color_variation : float = 0,
             edge_connect: bool = False,
             edge_connect_mode: int = 3,
-            edge_threshold: float = 0.5
+            edge_threshold: float = 0.5,
+            sd_infinity: bool = False,
+            sd_infinity_mode: str = None
     ) -> List[Image.Image]:
         extra_kwargs = {
             'parlance_zz_noise' : parlance_zz_noise,
@@ -261,7 +263,9 @@ class ImageAIUtilsClient:
             'color_variation' : color_variation,
             'edge_connect' : edge_connect,
             'edge_connect_mode' : edge_connect_mode,
-            'edge_threshold' : edge_threshold
+            'edge_threshold' : edge_threshold,
+            'sd_infinity' : sd_infinity,
+            'sd_infinity_mode' : sd_infinity_mode
         }
         if mask is not None:
             extra_kwargs['mask'] = image_to_base64url(mask).decode()

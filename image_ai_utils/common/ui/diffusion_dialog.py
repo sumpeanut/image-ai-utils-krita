@@ -87,6 +87,10 @@ class DiffusionDialog(QDialog):
     edge_connect_mode_spin_box: QDoubleSpinBox
     edge_threshold_label: QLabel
     edge_threshold_double_spin_box: QDoubleSpinBox
+    sd_infinity_label: QLabel
+    sd_infinity_check_box: QCheckBox
+    sd_infinity_mode_label: QLabel
+    sd_infinity_mode_combo_box: QComboBox
 
     def __init__(self):
         super().__init__()
@@ -108,6 +112,9 @@ class DiffusionDialog(QDialog):
         )
         self.edge_connect_check_box.stateChanged.connect(
             lambda state: self.edge_threshold_double_spin_box.setEnabled(state)
+        )
+        self.sd_infinity_check_box.stateChanged.connect(
+            lambda state: self.sd_infinity_mode_combo_box.setEnabled(state)
         )
 
         self.upscale_dialog = UpscaleDialog()
@@ -199,6 +206,8 @@ class DiffusionDialog(QDialog):
             request_data['edge_connect'] = self.edge_connect_check_box.isChecked()
             request_data['edge_connect_mode'] = self.edge_connect_mode_spin_box.value()
             request_data['edge_threshold'] = self.edge_threshold_double_spin_box.value()
+            request_data['sd_infinity'] = self.sd_infinity_check_box.isChecked()
+            request_data['sd_infinity_mode'] = self.sd_infinity_mode_combo_box.currentText()
             thread = ProgressThread(ImageAIUtilsClient.client().inpaint, request_data)
         elif self._mode == DiffusionMode.MAKE_TILABLE:
             request_data['strength'] = self.strength_double_spin_box.value()
@@ -256,7 +265,10 @@ class DiffusionDialog(QDialog):
         self.edge_connect_mode_spin_box.setVisible(mode == DiffusionMode.INPAINT)
         self.edge_threshold_label.setVisible(mode == DiffusionMode.INPAINT)
         self.edge_threshold_double_spin_box.setVisible(mode == DiffusionMode.INPAINT)
-        
+        self.sd_infinity_label.setVisible(mode == DiffusionMode.INPAINT)
+        self.sd_infinity_check_box.setVisible(mode == DiffusionMode.INPAINT)
+        self.sd_infinity_mode_label.setVisible(mode == DiffusionMode.INPAINT)
+        self.sd_infinity_mode_combo_box.setVisible(mode == DiffusionMode.INPAINT)
 
     def set_target_size(self, width, height):
         self._target_width = width

@@ -405,6 +405,35 @@
             <double>0.100000000000000</double></property>
            <property name="value">
             <double>0.500000000000000</double></property></widget></item>
+         <!-- begin sd-infinity experiment -->
+         <item row="17" column="0">
+          <widget class="QLabel" name="sd_infinity_label"><property name="text">
+            <string>SD Infinity:</string></property></widget></item>
+         <item row="17" column="1">
+          <widget class="QCheckBox" name="sd_infinity_check_box"><property name="text"><string/></property>
+           <property name="checked">
+            <bool>false</bool></property></widget></item>
+         <item row="18" column="0">
+          <widget class="QLabel" name="sd_infinity_mode_label"><property name="text">
+            <string>Mode:</string></property></widget></item>
+         <item row="18" column="1">
+          <widget class="QComboBox" name="sd_infinity_mode_combo_box">
+           <property name="enabled">
+            <bool>false</bool></property>
+           <item><property name="text">
+             <string>gaussian</string></property></item>
+           <item><property name="text">
+             <string>perlin</string></property></item>
+           <item><property name="text">
+             <string>edge_pad</string></property></item>
+           <item><property name="text">
+             <string>patchmatch</string></property></item>
+           <item><property name="text">
+             <string>cv2_ns</string></property></item>
+           <item><property name="text">
+             <string>cv2_telea</string></property></item>
+           <item><property name="text">
+             <string>mean_fill</string></property></item></widget></item>
         </layout>
        </item>
        <item>
